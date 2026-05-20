@@ -158,7 +158,6 @@ jeepay-open-integration/
 - [Jeepay 官方文档](https://doc.jeequan.com)
 - [Jeepay 开源版源码](https://gitee.com/jeequan/jeepay)
 - [Jeepay SDK 源码](https://gitee.com/jeequan/jeepay-manager/tree/master/jeepay-sdk-java)
-- [IJPay 支付 SDK](https://gitee.com/javen205/IJPay)
 
 ## 声明
 
