@@ -1,6 +1,6 @@
 # Jeepay 开源版支付系统对接 Skill
 
-[![Skill Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com)
+[![Skill Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com)
 [![Jeepay](https://img.shields.io/badge/Jeepay-开源版-green.svg)](https://gitee.com/jeequan/jeepay)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
@@ -167,6 +167,6 @@ jeepay-open-integration/
 
 ---
 
-> Skill 版本：1.0.0 | 适用版本：Jeepay 开源版 | SDK 版本：1.6.1+
-> 文档创建时间：2026-05-15 | 最后更新：2026-05-20
+> Skill 版本：1.0.1 | 适用版本：Jeepay 开源版 | SDK 版本：1.6.1+
+> 文档创建时间：2026-05-15 | 最后更新：2026-05-25
 

@@ -20,38 +20,24 @@
 
 ## SDK 初始化
 
-### 单例模式（单商户场景）
+### getInstance 模式（单商户 / 多商户均适用）
 
-SDK 内部通过 `static HashMap<appId, JeepayClient>` 缓存实例，`getInstance()` 方法加 `synchronized` 保证线程安全。同一个 `appId` 多次调用返回**同一个实例**。
+SDK 内部通过 `static HashMap<appId, JeepayClient>` 缓存实例，`getInstance(appId, apiKey, apiBase)` 方法加 `synchronized` 保证线程安全。同一个 `appId` 多次调用返回**同一个实例**，不同 `appId` 返回不同实例，天然支持多商户。
 
 ```java
+// 单商户
 JeepayClient client = JeepayClient.getInstance(appId, apiKey, apiBase);
+
+// 多商户：按 appId 区分，各自独立
+JeepayClient clientA = JeepayClient.getInstance(merchantA_appId, merchantA_apiKey, apiBase);
+JeepayClient clientB = JeepayClient.getInstance(merchantB_appId, merchantB_apiKey, apiBase);
 ```
 
-**注意**：如果需要更换 `apiKey` 或 `apiBase`，必须通过 setter 方法更新已有实例，或构造新实例（不走单例）。
+> ⚠️ **线程安全注意**：`getInstance()` 返回的实例被同 `appId` 的所有线程共享。如果对返回的实例调用 `setApiKey()` / `setApiBase()`，会影响所有使用该 `appId` 的线程。多商户场景下，每个商户只需调用一次 `getInstance()` 并复用即可，**不要修改已有实例的属性**。
 
-### 多例模式（多商户/多应用场景）
+> ⛔ **禁止使用 `new JeepayClient()` 构造函数**：三参构造函数的参数顺序为 `(apiBase, signType, apiKey)`，不含 `appId`，且类中没有 `setAppId()` 方法——构造出来的实例 `appId` 永远为 null，多商户场景必然失败。
 
-直接构造实例，每个商户/应用创建独立的 `JeepayClient`，互不影响：
-
-```java
-// 商户A
-JeepayClient clientA = new JeepayClient(merchantA_appId, merchantA_apiKey, apiBase);
-
-// 商户B
-JeepayClient clientB = new JeepayClient(merchantB_appId, merchantB_apiKey, apiBase);
-```
-
-或使用 setter 方式：
-
-```java
-JeepayClient client = new JeepayClient();
-client.setAppId(appId);
-client.setApiKey(apiKey);
-client.setApiBase(apiBase);
-```
-
-**适用场景**：支付平台、聚合收银台、SaaS 多租户等需要同时管理多个商户配置的场景。
+**适用场景**：单商户接入、支付平台、聚合收银台、SaaS 多租户等。
 
 ### Spring Boot 集成方式
 
@@ -87,12 +73,8 @@ public class JeepayBean {
 @Autowired
 private JeepayBean jeepayBean;
 
-// 单例模式
+// 单商户 / 多商户均使用 getInstance
 JeepayClient client = JeepayClient.getInstance(
-    jeepayBean.getAppId(), jeepayBean.getApiKey(), jeepayBean.getApiBase());
-
-// 多例模式（多商户场景）
-JeepayClient client = new JeepayClient(
     jeepayBean.getAppId(), jeepayBean.getApiKey(), jeepayBean.getApiBase());
 ```
 
@@ -225,14 +207,14 @@ model.setMchOrderNo("mho" + System.currentTimeMillis());
 
 | 支付方式 | channelExtra | 说明 |
 |----------|-------------|------|
-| WX_LITE / WX_JSAPI | `{"openId": "用户openid"}` | 微信小程序/公众号需传 openid |
+| WX_LITE / WX_JSAPI | `{"openid": "用户openid"}` | 微信小程序/公众号需传 openid |
 | WX_BAR / ALI_BAR / AUTO_BAR | `{"authCode": "用户付款码"}` | 条码支付需传付款码 |
 | QR_CASHIER | `{"payDataType": "codeImgUrl"}` | 收银台可指定返回类型 |
 | WX_APP / ALI_APP | 不需要 | APP支付无需 channelExtra |
 
 ```java
 JSONObject extra = new JSONObject();
-extra.put("openId", "用户openid");
+extra.put("openid", "用户openid");
 model.setChannelExtra(extra.toString());
 ```
 

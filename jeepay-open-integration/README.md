@@ -10,9 +10,6 @@
 jeepay-open-integration/
 ├── SKILL.md                              # 技能主文件（路由规则 + 执行步骤）
 ├── README.md                             # 说明文档
-├── docs/
-│   ├── introduction.md                   # 特点与使用说明
-│   └── comparison-with-alipay-skill.md   # 与支付宝技能对比分析报告
 └── references/
     ├── scene-routing.md              # 支付方式路由表（决策树 + 关键词匹配 + 澄清话术）
     ├── api-routing.md                # API 路由表（接口文档索引 + 调用流程）
@@ -47,4 +44,4 @@ jeepay-open-integration/
 
 ---
 
-> Skill 版本：1.0.0 | 文档创建时间：2026-05-15 | 最后更新：2026-05-20
+> Skill 版本：1.0.1 | 文档创建时间：2026-05-15 | 最后更新：2026-05-25

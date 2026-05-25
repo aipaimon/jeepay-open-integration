@@ -155,7 +155,7 @@
 - 自动识别条码类型
 - 支持微信、支付宝、云闪付等
 - 无需指定具体支付渠道
-- channelExtra必须传auth_code
+- channelExtra必须传authCode
 
 **关键词**：付款码、条码支付、扫码枪、被扫、聚合码支付、自动识别、商家扫用户
 
@@ -174,7 +174,7 @@
 - 用户主动出示付款码
 - 商家使用扫码枪扫码
 - 需要指定具体支付渠道
-- channelExtra必须传auth_code
+- channelExtra必须传authCode
 
 ---
 

@@ -16,14 +16,6 @@ https://doc.jeequan.com/#/integrate/open/api/81
                          └── Hash 路由
 ```
 
-## 空间编码对照表
-
-| 空间编码 | 说明 | spaceUuid |
-|----------|------|-----------|
-| guide | 指引文档 | open-guide |
-| api | API文档 | open-api |
-| issue | 常见问题 | open-issue |
-
 ## 文档获取脚本
 
 ```bash

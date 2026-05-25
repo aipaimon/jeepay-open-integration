@@ -9,7 +9,7 @@ Jeepay 开源版支付集成校验清单。
 | 校验项 | 校验要求 | 说明 |
 |--------|----------|------|
 | 签名方式 | 使用 MD5 | 固定使用 MD5 签名 |
-| 参数排序 | 按 key 的 ASCII 码升序排列 | 确保签名一致 |
+| 参数排序 | 按 key 做大小写不敏感排序 | 与 SDK `String.CASE_INSENSITIVE_ORDER` 一致 |
 | 签名验证 | 异步通知必须先验签 | 确保通知来源可信 |
 
 ### 签名算法检查
@@ -51,7 +51,7 @@ if (!sign.equalsIgnoreCase(computedSign)) {
 | mchOrderNo | 商户订单号 | String(64) |
 | wayCode | 支付方式 | String(30) |
 | amount | 支付金额 | int（单位：分） |
-| currency | 货币代码 | String(3)（默认：cny） |
+| currency | 货币代码 | String(3)（固定：CNY） |
 | subject | 商品标题 | String(128) |
 | notifyUrl | 异步通知地址 | String(256) |
 | sign | 签名值 | String(32) |
@@ -61,7 +61,7 @@ if (!sign.equalsIgnoreCase(computedSign)) {
 | 参数 | 格式要求 | 示例 |
 |------|----------|------|
 | amount | 正整数，单位分 | 100（表示1元） |
-| currency | 三位货币代码 | cny |
+| currency | 三位货币代码 | CNY |
 | notifyUrl | 有效的URL格式 | https://xxx.com/notify |
 | sign | 32位MD5签名 | C380BEC2BFD727A4B6845133519F3AD6 |
 
